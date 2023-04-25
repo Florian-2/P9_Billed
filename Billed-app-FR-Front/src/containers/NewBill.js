@@ -26,7 +26,6 @@ export default class NewBill {
     const fileName = filePath[filePath.length-1]
 
     if (!this.isPicture(file.type)) {
-      console.warn("Document invalide");
       input.value = "";
       return;
     }
