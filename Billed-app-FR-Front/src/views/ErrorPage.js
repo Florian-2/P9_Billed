@@ -1,6 +1,7 @@
 import VerticalLayout from './VerticalLayout.js'
 
 export default (error) => {
+  console.log(error);
   return (`
     <div class='layout'>
       ${VerticalLayout()}

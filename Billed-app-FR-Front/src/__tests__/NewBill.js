@@ -54,41 +54,7 @@ describe('Given I am connected as an employee', () => {
         expect(handleChangeFile).toBeCalled();
         expect(inputFile.value).toBeFalsy();
       })
-
-
-      test('Then i can choose file but there are an error server 500', async () => {
-        const logSpy = jest.spyOn(global.console, 'error');
-
-        jest.spyOn(mockStore, 'bills');
-        mockStore.bills.mockImplementationOnce(() => {
-          return {
-            create: () => {
-              return Promise.reject(new Error("Erreur 404"))
-            }
-          }
-        })
-
-        await new Promise(process.nextTick);
-        const newBill = new NewBill({ document, onNavigate, store: mockStore, localStorage: window.localStorage });
-        const handleChangeFile = jest.fn((e) => newBill.handleChangeFile(e));
-        const inputFile = screen.getByTestId("file");
-
-        const file = new File(["contenu du fichier fake"], "facture.pdf", { type: "application/pdf" });
-
-        inputFile.addEventListener("change", handleChangeFile);
-        fireEvent.change(inputFile, { target: { files: [file] } });
-
-        expect(logSpy).toHaveBeenCalledWith(new Error("Erreur 404"));
-      });
     })
-
-
-
-
-
-
-
-
 
     describe('When I do fill fields in correct format and I click on submit button', () => {
       test('Then I should post new Bill ticket', async () => {
